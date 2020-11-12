@@ -1,0 +1,125 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css');
+
+* {
+  box-sizing: border-box;
+}
+
+.item-container {
+  background: #fff;
+  font-size: 14px;
+  font: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+  color: var(--text-color);
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+  padding: 0px 10px 0px 20px;
+  width: 520px;
+  height: 50px;
+  margin-bottom: 6px;
+  border-radius: 3px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.list {
+  display: flex;
+  position: absolute;
+  justify-content: space-between;
+}
+
+.item-price, .item-quantity, .dnd {
+  position: absolute;
+  width: 50px;
+}
+
+.item-price {
+  left: 400px;
+  text-align: right;
+}
+
+.item-quantity {
+  left: 5px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.dnd {
+  right: -20px;
+}
+
+.item-complete {
+  position: relative;
+  background: var(--background-color);
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+  color: gray;
+}
+
+.btn {
+  cursor: pointer;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+  border: 0;
+  border-radius: 3px;
+  color: var(--background-color);
+  font-size: 10px;
+  line-height: 20px;
+  width: 22px;
+  text-align: center;
+  position: absolute;
+  right: 0;
+  transform: translate(100%, -50%);
+}
+
+.delete-btn {
+  background-color: var(--secondary-color);
+  top: 30%;
+}
+
+.edit-btn {
+  background-color: var(--primary-color);
+  top: 70%;
+}
+
+.btn-completed {
+  display: none;
+}
+
+/* checkbox https://codepen.io/valerypatorius/pen/oXGMGL/*/
+
+input[type="checkbox"] { display: none; }
+
+input[type="checkbox"] + label {
+  display: block;
+  position: relative;
+  padding-left: 65px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+input[type="checkbox"] + label:last-child { margin-bottom: 0; }
+
+input[type="checkbox"] + label:before {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--secondary-color);
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: .6;
+  -webkit-transition: all .12s, border-color .08s;
+  transition: all .12s, border-color .08s;
+}
+
+input[type="checkbox"]:checked + label:before {
+  width: 10px;
+  top: -5px;
+  left: 5px;  
+  border-radius: 0;
+  opacity: 1;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
