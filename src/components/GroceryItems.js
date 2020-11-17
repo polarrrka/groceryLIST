@@ -9,7 +9,6 @@ export default function GroceryItems({ items, itemComplete, handleClearCompleted
       droppableId="droppable">
       {provided => (
         <div
-          className="items-list"
           {...provided.droppableProps}
           ref={provided.innerRef}>
 

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import AddItemForm from './AddItemForm'
-import './item.styles.css'
 
 export default function Item({ item, id, index, itemComplete, onEdit, setEditItems, handleClearCompleted }) {
 
@@ -109,7 +108,7 @@ export default function Item({ item, id, index, itemComplete, onEdit, setEditIte
                   </div>
                   <div 
                     className={item.complete ? "btn-completed" : "btn delete-btn"} 
-                    type="button" onClick={() => {item.complete = true; return handleClearCompleted()}}>
+                    type="button" onClick={() => {item.complete = true}}>
                       <i className="fas fa-times"></i>
                   </div>
                 </div>

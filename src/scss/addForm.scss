@@ -1,0 +1,167 @@
+.modal-btn {
+  cursor: pointer;
+  box-shadow: $box-shadow-items;
+  background-color: $primary-color;
+  border: .2rem solid $primary-color;
+  border-radius: .4rem;
+  margin: 2rem;
+  color: $header-color;
+  font-size: 1.5rem;
+  padding: 1rem;
+  width: 20rem;
+
+  &:active, &:focus {
+    outline: none;
+  }
+}
+
+.close-btn {
+  background: transparent;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  margin: auto;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  
+  [class^="close-btn__"] {
+    height: .4rem;
+    width: 2.5rem;
+    position: absolute;
+    margin-top: 1.2rem;
+    background-color: $secondary-color;
+    border-radius: .5rem;
+    transition: all .3s ease-in;
+  }
+
+  &__leftright {
+    transform: rotate(45deg);
+  }
+
+  &__rightleft {
+    transform: rotate(-45deg);
+  }
+
+  &:hover &__leftright {
+    transform: rotate(-45deg);
+    background-color: darken($secondary-color, 20%);
+  }
+  
+  &:hover &__rightleft {
+    transform: rotate(45deg);
+    background-color: darken($secondary-color, 20%);
+  }
+}
+
+/*form styles https://codepen.io/chrisoncode/pen/IdGKH */
+
+.group { 
+  position: relative;
+  display: inline-flex;
+}
+
+.form {
+  font-size: 1.5rem;
+  padding: 1rem 1rem 1rem .5rem;
+  margin: 2rem 0 0 2rem;
+  color: $text-color;
+  position: relative;
+  width: 20rem;
+  border: none;
+  border-bottom: .1rem solid $secondary-color;
+
+    &:focus { 
+      outline: none;
+  }
+}
+
+.form-label {
+  color: $secondary-color;
+  margin: 2rem 0 0 2rem;
+  font-size: 1.6rem;
+  font-weight: normal;
+  position: relative; 
+  pointer-events: none;
+  right: 21rem;
+  top: .5rem;
+  transition: 0.2s ease all; 
+  -moz-transition: 0.2s ease all; 
+  -webkit-transition: 0.2s ease all;
+}
+
+.form:focus ~ .form-label, .form:not([value=""]) ~ .form-label {
+  top: -2rem;
+  font-size: 1.2rem;
+  color: $primary-color;
+}
+
+.bar {
+  position: absolute; 
+  display: block; 
+  width: 20rem;
+  left: 2rem;
+
+  &:before, &:after {
+    content: '';
+    height: .1rem; 
+    width: 0;
+    bottom: .1rem; 
+    position: absolute;
+    background: $primary-color; 
+    transition: .2s ease all; 
+    -moz-transition: .2s ease all; 
+    -webkit-transition: .2s ease all;
+  }
+
+  &:before {
+    left:50%;
+  }
+  &:after {
+    right:50%; 
+  }
+}
+
+.form:focus ~ .bar:before, .form:focus ~ .bar:after {
+  width: 50%;
+}
+
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  height: auto;
+}
+
+.quantity-form {
+  display: inline-flex;
+  margin: 3rem 0 0 0;
+  height: 3rem;
+  width: 9rem;
+  background: $header-color;
+  padding: .1rem;
+
+    &__input {
+    width: 3em;
+    height: 100%;
+    text-align: center;
+    border: none;
+    outline-style: none;
+    background: transparent;
+    color: black;
+  }
+
+    &__spinner-btn {
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      font-size: 1.2rem;
+      padding: .8rem;
+      background: $background-color;
+      color: $text-color;
+      border: none;
+      border-radius: .5rem;
+  }
+}
+

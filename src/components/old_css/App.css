@@ -1,31 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap');
-
-:root {
-  --primary-color: #A82654;
-  --secondary-color: #FD8C69;
-  --background-color: #e8e8e8;
-  --text-color: #2A363B; 
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background-image: linear-gradient(-300deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-  background-size: cover;
-  min-height: 100vh;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 header {
-  font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  font-size: 5rem;
+  font-size: 7rem;
   color: #fff;
 }
 

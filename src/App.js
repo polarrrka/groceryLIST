@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import AddItemForm from './components/AddItemForm'
 import GroceryItems from './components/GroceryItems'
-import './App.css'
 import uuid from 'uuid/dist/v4'
 import { DragDropContext } from 'react-beautiful-dnd'
 import Pdf from 'react-to-pdf'
+import './main.scss'
 
 const LOCAL_STORAGE_KEY = 'groceryList.items'
 const ref = React.createRef()
@@ -76,6 +76,11 @@ function App() {
     newItems.splice(destination.index, 0, removed)
     setItems(newItems)
   }
+    function handleClose() {
+
+      setFormVisible(false)
+
+  }
 
   return (
     <div className="app">
@@ -93,7 +98,10 @@ function App() {
       </Pdf>
       
       <div ref={ref} className="container">
-        <div className={isFormVisible ? "modal-container show-modal" : "modal-container"}>
+        <div 
+          className={isFormVisible ? "modal-container show-modal" : "modal-container"} 
+          onClick={handleClose}
+          >
           <div className="modal">
             <div className="modal-header">
               <h3>add item</h3>
@@ -121,10 +129,13 @@ function App() {
         </div>
 
         <div className="footer">
-          <div className="left-to-buy">{items.filter(item => !item.complete).length} left to buy</div>
-          <div className="total-price">
+                    <div className="total-price">
             {items.find(item => item.price) ? `Total price: ${totalPrice()} €` : ''}
           </div>
+          <div className="left-to-buy">
+            {items.filter(item => !item.complete).length} left to buy
+          </div>
+
         </div>
 
         <button className="clear-btn" onClick={handleClearCompleted}>clear bought</button>

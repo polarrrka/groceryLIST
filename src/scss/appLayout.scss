@@ -1,0 +1,70 @@
+header {
+  font-family: 'Roboto';
+  font-size: 7rem;
+  color: $header-color;
+  margin-top: 2rem;
+}
+
+.container {
+  background: $background-color;
+  position: relative;
+  box-shadow: $box-shadow;
+  border-radius: 1rem;
+  padding: 2rem 2rem 2rem 4rem;
+  width: 60rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.add-item {
+  box-shadow: $box-shadow;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: $secondary-color;
+  background-color: $primary-color;
+  border-radius: 50%;
+  width: 6rem;
+  height: 6rem;
+  margin-top: -7rem;
+  margin-left: 85%;
+  font-size: 2rem;
+}
+
+.footer {
+  position: relative;
+  background: $header-color;
+  color: $text-color;
+  box-shadow: $box-shadow-items;
+  border-radius: .4rem;
+  font-size: 1.6rem;
+  padding: 1rem;
+  margin-top: 2rem;
+  width: 52rem;
+
+  .total-price {
+    position: absolute;
+    right: 1rem;
+  }
+
+}
+
+.clear-btn {
+  cursor: pointer;
+  box-shadow: $box-shadow-items;
+  background-color: $primary-color;
+  border: .2rem solid $primary-color;
+  border-radius: .4rem;
+  color: $secondary-color;
+  display: block;
+  font-size: 1.6rem;
+  padding: 1rem;
+  margin-top: 2rem;
+  width: 52rem;
+
+  &:focus {
+    outline: none;
+  }
+}

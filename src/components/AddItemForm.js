@@ -1,5 +1,4 @@
-  import React, { useState, useEffect } from 'react'
-import './addForm.styles.css'
+import React, { useState, useEffect } from 'react'
 
 export default function AddItemForm({ setOnEdit, onEdit, setFormVisible, handleEditItems, id, addItem, items  }) {
   const [name, setName] = useState("")
@@ -63,10 +62,11 @@ export default function AddItemForm({ setOnEdit, onEdit, setFormVisible, handleE
   }  
 
   return (
-<>
-      <form onSubmit={handleSubmit}>
-        <div className="item-wrap">
-          <div className="group">
+  <>
+    <form 
+      onSubmit={handleSubmit}>
+        <div className="group">
+          <div>
             <input 
               className="form"
               name="item" 
@@ -74,54 +74,48 @@ export default function AddItemForm({ setOnEdit, onEdit, setFormVisible, handleE
               value={name}
               required
               onChange={e => setName(e.target.value)} />
-            <span className="highlight"></span>
             <span className="bar"></span>
             <label htmlFor="item" className="form-label">item</label>
           </div>
-          <div className="quantity-wrapper">
-            <div className="spinner-btn" onClick={() => changeCount('decrement')}>
+
+          <div className="quantity-form">
+            <div className="quantity-form__spinner-btn" onClick={() => changeCount('decrement')}>
               <i className="fas fa-minus"></i>
             </div>
             <input
-              className="quantity"
+              className="quantity-form__input"
               name="quantity" 
               type="number" 
               min="1"
               placeholder="1"
               value={quantity} 
               onChange={e => setQuantity(e.target.value)} />
-            <div className="spinner-btn" onClick={() => changeCount('increment')}>
+            <div className="quantity-form__spinner-btn" onClick={() => changeCount('increment')}>
               <i className="fas fa-plus"></i>
             </div>
           </div>
         </div>
 
-        <div className="price-container">
-          <div className="group">
-            <input
-              className="form price-form"
-              name="price" 
-              type="number" 
-              min="0"
-              step=".01"
-              value={price}
-              onChange={e => setPrice(e.target.value)} />
-            <span className="highlight"></span>
-            <span className="bar price-bar"></span>
-            <label htmlFor="price" className="form-label">
-              price €
-            </label>
-          </div>
-        </div>
+        <input
+          className="form"
+          name="price" 
+          type="number" 
+          min="0"
+          step=".01"
+          value={price}
+          onChange={e => setPrice(e.target.value)} />
+        <span className="bar"></span>
+        <label htmlFor="price" className="form-label">
+          price €
+        </label>
 
-        <button type="submit" className="modal-btn">
-        <i className="fas fa-plus"></i>
-        </button>
-      </form>
-      <div className="close-container" onClick={() => handleClose}>
-        <div className="leftright"></div>
-        <div className="rightleft"></div>
-      </div>
-    </>
+      <button type="submit" className="modal-btn">submit</button>
+    </form>
+    
+    <div className="close-btn" onClick={() => handleClose()}>
+      <div className="close-btn__leftright"></div>
+      <div className="close-btn__rightleft"></div>
+    </div>
+  </>
   )
 }
