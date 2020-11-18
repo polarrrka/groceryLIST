@@ -1,0 +1,21 @@
+@keyframes modalopen {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@mixin btn-hover-active {
+    &:hover {
+    background-color: darken($primary-color, 5%);
+    transform: translateY(-1px);
+    box-shadow: $box-shadow;
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: $box-shadow-items;
+  }
+}

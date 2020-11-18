@@ -10,9 +10,13 @@ const LOCAL_STORAGE_KEY = 'groceryList.items'
 const ref = React.createRef()
 
 function App() {
-  const [isFormVisible, setFormVisible] = useState(false)
   const [onEdit, setOnEdit] = useState(false)
-  const [items, setItems] = useState([])  
+  const [isFormVisible, setFormVisible] = useState(false)
+  const [items, setItems] = useState([])
+  const [name, setName] = useState("")
+  const [price, setPrice] = useState("")
+  const [quantity, setQuantity] = useState("")
+  const [editItemId, setEditItemId] = useState("")
   
  useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
@@ -23,21 +27,37 @@ function App() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(items))
   }, [items])
 
-  function setEditItems(id) {
+  function handleOpenModal(editValue, editPrice, editQValue, id) {
+    setOnEdit(true)
+    setFormVisible(true)
     const newItems = [...items]
     const item = newItems.find(item => item.id === id)
-    item.edit = !item.edit
+    item.content = editValue
+    item.quantity = editQValue
+    item.price = editPrice
+    setName(editValue)
+    setPrice(editPrice)
+    setQuantity(editQValue)
+    setEditItemId(id)
     setItems(newItems)
-    setOnEdit(true)
+  }
+
+  function handleSaveEdit(name, price, quantity, id) {
+    setItems(
+       items.map(item => {
+        if(item.id === id){
+          return {...item, id: id, content: name, quantity: quantity, price: price, complete: false}}
+        return item;
+      })
+    )
   }
 
   function addItem(name, price, quantity) {
     setItems(prevItems => {
-      const newItems = [...prevItems, {id: uuid(), content: name, quantity: quantity, price: price, complete: false, edit: false}]
+      const newItems = [...prevItems, {id: uuid(), content: name, quantity: quantity, price: price, complete: false}]
       newItems.sort((a,b) => a.complete - b.complete)
       return newItems
     })
-    setFormVisible(false)
   }
 
   function totalPrice() {
@@ -67,6 +87,14 @@ function App() {
     setItems(newItems)
   }
 
+  function handleDeleteItem(id) {
+    let newItems = [...items]
+    const item = newItems.find(item => item.id === id)
+    item.complete = !item.complete
+    newItems = items.filter(item => !item.complete)
+    setItems(newItems)
+  }
+
   function onDragEnd(result) {
     const { source, destination } = result
     if(!result.destination) return
@@ -76,53 +104,45 @@ function App() {
     newItems.splice(destination.index, 0, removed)
     setItems(newItems)
   }
-    function handleClose() {
-
-      setFormVisible(false)
-
-  }
 
   return (
     <div className="app">
 
       <header>Grocery List</header>
 
-      <div type="button" className="add-item" onClick={() => setFormVisible(true)}>
-          <i className="fas fa-plus"></i>
-      </div>
-
       <Pdf targetRef={ref} filename="grocery-list.pdf">
         {({toPdf}) => (
           <button onClick={toPdf}>to PDF</button>
         )}
       </Pdf>
-      
+
       <div ref={ref} className="container">
-        <div 
-          className={isFormVisible ? "modal-container show-modal" : "modal-container"} 
-          onClick={handleClose}
-          >
-          <div className="modal">
-            <div className="modal-header">
-              <h3>add item</h3>
-            </div>
-            <AddItemForm 
-              addItem={addItem}
-              items={items}
-              onEdit={onEdit}
-              setFormVisible={setFormVisible}
-              handleEditItems={handleEditItems} />
-          </div>
-        </div>
+              <div type="button" className="add-item" onClick={() => setFormVisible(true)}>
+        <i className="fas fa-plus"></i>
+      </div>
+
+        <AddItemForm 
+          addItem={addItem}
+          name={name}
+          price={price}
+          quantity={quantity}
+          setName={setName}
+          setPrice={setPrice}
+          setQuantity={setQuantity}
+          items={items}
+          onEdit={onEdit}
+          setOnEdit={setOnEdit}
+          isFormVisible={isFormVisible}
+          setFormVisible={setFormVisible}
+          handleEditItems={handleEditItems}
+          handleSaveEdit={handleSaveEdit}
+          editItemId={editItemId} />
 
         <div className="dragndrop">
           <DragDropContext onDragEnd={onDragEnd}>
             <GroceryItems
-              addItem={addItem}
-              setFormVisible={setFormVisible}
-              handleClearCompleted={handleClearCompleted}
-              onEdit={onEdit}
-              setEditItems={setEditItems}
+              handleOpenModal={handleOpenModal}
+              handleDeleteItem={handleDeleteItem}
               itemComplete={itemComplete}
               items={items} />
           </DragDropContext>
@@ -135,7 +155,6 @@ function App() {
           <div className="left-to-buy">
             {items.filter(item => !item.complete).length} left to buy
           </div>
-
         </div>
 
         <button className="clear-btn" onClick={handleClearCompleted}>clear bought</button>

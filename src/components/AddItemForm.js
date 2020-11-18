@@ -1,18 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
-export default function AddItemForm({ setOnEdit, onEdit, setFormVisible, handleEditItems, id, addItem, items  }) {
-  const [name, setName] = useState("")
-  const [price, setPrice] = useState("")
-  const [quantity, setQuantity] = useState("") 
-  
-/*    useEffect(() => {
-    const item = [...items].filter(item => item.edit)
-    if(onEdit) {
-      setName(item.content)
-      setQuantity(item.quantity)
-      setPrice(item.price)
-    }
-  }, [items]) */
+
+export default function AddItemForm({ setOnEdit, name, price, quantity, setName, setPrice, setQuantity, onEdit, isFormVisible, setFormVisible, id, addItem, handleSaveEdit, editItemId }) {
 
   function changeCount(value) {
     if (value === 'increment') {
@@ -23,99 +12,108 @@ export default function AddItemForm({ setOnEdit, onEdit, setFormVisible, handleE
     }
   }
 
-  function handleClose() {
-    if(onEdit) { 
-      setOnEdit(false)
-      setFormVisible(false)
-    } else {
-      setName("")
-      setQuantity("")
-      setPrice("")
-      setFormVisible(false)
-    }
-    
-  }
-
-/*   function handleSave(id) {
-    if(onEdit) {
-      handleEditItems(name, quantity, price, id)
-    } else {
-      setName(item.content)
-      setQuantity(item.quantity)
-      setPrice(item.price)
-    }
-    setOnEdit(false)
-  }  */
-
-
-    function handleSubmit(e) {
-    if(onEdit) {
-       handleEditItems(name, quantity, price, id)
-      } else if(!name) {return}
-      else {
-    addItem(name, price, quantity)
+  function clearState() {
     setName("")
     setQuantity("")
     setPrice("")
-      }
-      e.preventDefault()
-  }  
+  }
+
+  function handleClose(e) {
+    if(onEdit) setOnEdit(false)
+    clearState()
+    setFormVisible(false)
+    e.preventDefault()
+  }
+
+    function handleSubmit(e) {
+    if(!name) return
+    else if(onEdit) {
+      handleSaveEdit(name, price, quantity, editItemId)
+      clearState()
+      setOnEdit(false)
+      setFormVisible(false)
+    } else {
+      addItem(name, price, quantity)
+      clearState()
+      setFormVisible(false)
+    }
+    e.preventDefault()
+  }
+
+  function handleModalClose(e) {
+    if (e.target.closest(".modal")) return
+    clearState()
+    setOnEdit(false)
+    setFormVisible(false)
+  }
 
   return (
-  <>
-    <form 
-      onSubmit={handleSubmit}>
-        <div className="group">
-          <div>
-            <input 
-              className="form"
-              name="item" 
-              type="text"
-              value={name}
-              required
-              onChange={e => setName(e.target.value)} />
-            <span className="bar"></span>
-            <label htmlFor="item" className="form-label">item</label>
+    <>
+      <div 
+        className={isFormVisible ? "modal-container show-modal" : "modal-container close-modal"}
+        onClick={handleModalClose}>
+        <div className="modal">
+          <div className="modal-header">
+            <h3>{onEdit ? "edit item" : "add item"}</h3>
           </div>
 
-          <div className="quantity-form">
-            <div className="quantity-form__spinner-btn" onClick={() => changeCount('decrement')}>
-              <i className="fas fa-minus"></i>
-            </div>
-            <input
-              className="quantity-form__input"
-              name="quantity" 
-              type="number" 
-              min="1"
-              placeholder="1"
-              value={quantity} 
-              onChange={e => setQuantity(e.target.value)} />
-            <div className="quantity-form__spinner-btn" onClick={() => changeCount('increment')}>
-              <i className="fas fa-plus"></i>
-            </div>
-          </div>
-        </div>
+          <form 
+            onSubmit={handleSubmit}>
+              <div className="group">
+                <div>
+                  <input
+                    id={id}
+                    className="form"
+                    name="item" 
+                    type="text"
+                    value={name}
+                    required
+                    onChange={e => setName(e.target.value)} />
+                  <span className="bar"></span>
+                  <label htmlFor="item" className="form-label">item</label>
+                </div>
 
-        <input
-          className="form"
-          name="price" 
-          type="number" 
-          min="0"
-          step=".01"
-          value={price}
-          onChange={e => setPrice(e.target.value)} />
-        <span className="bar"></span>
-        <label htmlFor="price" className="form-label">
-          price €
-        </label>
+                <div className="quantity-form">
+                  <div className="quantity-form__spinner-btn" onClick={() => changeCount('decrement')}>
+                    <i className="fas fa-minus"></i>
+                  </div>
+                  <input
+                    className="quantity-form__input"
+                    name="quantity" 
+                    type="number" 
+                    min="1"
+                    placeholder="1"
+                    value={quantity} 
+                    onChange={e => setQuantity(e.target.value)} />
+                  <div className="quantity-form__spinner-btn" onClick={() => changeCount('increment')}>
+                    <i className="fas fa-plus"></i>
+                  </div>
+                </div>
+              </div>
 
-      <button type="submit" className="modal-btn">submit</button>
-    </form>
+              <input
+                className="form"
+                name="price" 
+                type="number" 
+                min="0"
+                step=".01"
+                value={price}
+                onChange={e => setPrice(e.target.value)} />
+              <span className="bar"></span>
+              <label htmlFor="price" className="form-label">
+                price €
+              </label>
+
+            <button type="submit" className="modal-btn">submit</button>
+          </form>
     
-    <div className="close-btn" onClick={() => handleClose()}>
-      <div className="close-btn__leftright"></div>
-      <div className="close-btn__rightleft"></div>
-    </div>
+          <div className="close-btn" onClick={handleClose}>
+            <div className="close-btn__leftright"></div>
+            <div className="close-btn__rightleft"></div>
+          </div>
+
+        </div>
+      </div>
   </>
   )
 }

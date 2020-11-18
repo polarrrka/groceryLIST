@@ -15,7 +15,7 @@
 
 .modal {
   background-color: $header-color;
-  border-radius: .5rem;
+  border-radius: 5px;
   box-shadow: 0 0 1rem rgba(0, 0, 0,0.3);
   position: absolute;
   overflow: hidden;
@@ -23,7 +23,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 100%;
-  width: 45rem;
+  width: 34rem;
   height: 25rem;
   animation-name: modalopen;
   animation-duration: 1s;
@@ -34,13 +34,4 @@
   color: $secondary-color;
   padding: 1.5rem;
   font-size: 1.5rem;
-}
-
-@keyframes modalopen {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
