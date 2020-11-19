@@ -1,21 +1,31 @@
-.add-item {
-  box-shadow: $box-shadow;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: $secondary-color;
-  background-color: $primary-color;
-  border-radius: 50%;
-  width: 6rem;
-  height: 6rem;
-  margin-top: -7rem;
-  margin-left: 85%;
-  font-size: 2rem;
+.btn-header {
+  position: relative;
+  display: inline-block;
   transition: $transition;
 
-  @include btn-hover-active;
+  &__print, &__add {
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+    box-shadow: $box-shadow;
+    cursor: pointer;
+    color: $secondary-color;
+    background-color: $primary-color;
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    margin: 1rem 2rem 2rem 85%;
+    font-size: 2.5rem;
+    @include btn-hover-active;
+  }
+  &__add {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 }
+
+
 
 .clear-btn {
   cursor: pointer;

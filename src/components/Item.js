@@ -19,14 +19,14 @@ export default function Item({ item, id, index, handleDeleteItem, itemComplete, 
                   <div className="list">
                     <div className="item-quantity">{item.quantity}</div>
                     <input
-                      id={id}
+                      id={item.content}
                       type="checkbox"
                       className="hidden-box"
                       value={item.content}
                       checked={item.complete}
-                      onChange={() => itemComplete(id)} />
+                      onChange={e => itemComplete(id)} />
                       
-                    <label htmlFor={id} >
+                    <label htmlFor={item.content} >
                       <div className="item-content">{item.content}</div>
                     </label>
                     <div className="item-price">{!item.price ? '' : `${item.price} €`}</div>
@@ -54,5 +54,5 @@ export default function Item({ item, id, index, handleDeleteItem, itemComplete, 
             )}
       </Draggable>
     </>
-    )
+  )
 }

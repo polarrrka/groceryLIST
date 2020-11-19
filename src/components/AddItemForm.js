@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-export default function AddItemForm({ setOnEdit, name, price, quantity, setName, setPrice, setQuantity, onEdit, isFormVisible, setFormVisible, id, addItem, handleSaveEdit, editItemId }) {
+export default function AddItemForm({ onEdit, setOnEdit, name, price, quantity, setName, setPrice, setQuantity, isFormVisible, setFormVisible, id, addItem, handleSaveEdit, editItemId }) {
 
   function changeCount(value) {
     if (value === 'increment') {

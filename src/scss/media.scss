@@ -1,0 +1,30 @@
+@media print {  
+  body {
+    background-image: none;
+    background-color: #fff !important;
+  }
+
+  header {
+    color: $text-color;
+  }
+
+  .item-container,
+  .footer {
+    box-shadow: none;
+  }
+
+  input[type="checkbox"] {
+    & + label {
+      &:before {
+        border: 1px solid $text-color;
+      }
+    }
+  }
+
+  .btn-header,
+  .clear-btn,
+  .btn,
+  .dnd {
+    display: none;
+  }
+}
