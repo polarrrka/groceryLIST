@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import GroceryItems from './components/GroceryItems'
+import Meals from './components/Meals'
 import { DragDropContext } from 'react-beautiful-dnd'
 import './main.scss'
 
@@ -17,16 +18,6 @@ function App() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(items))
   }, [items])
 
-  function totalPrice() {
-    return items.reduce((total, item) => {
-      return total + Number(item.price)}, 0)
-  }
-
-  function handleClearCompleted() {
-    const newItems = items.filter(item => !item.complete)
-    setItems(newItems)
-  }
-
   function onDragEnd(result) {
     const { source, destination } = result
     if(!result.destination) return
@@ -36,33 +27,17 @@ function App() {
     newItems.splice(destination.index, 0, removed)
     setItems(newItems)
   }
-
+  
   return (
     <div className="app">
-
-      <header>Grocery List</header>
-
-      <div className={"container"}>
-
-        <div className="dragndrop">
-          <DragDropContext onDragEnd={onDragEnd}>
-            <GroceryItems
-              items={items}
-              setItems={setItems} />
-          </DragDropContext>
-        </div>
-
-        <div className="footer">
-          <div className="total-price">
-            {items.find(item => item.price) ? `Total price: ${totalPrice()} €` : ''}
-          </div>
-          <div className="left-to-buy">
-            {items.filter(item => !item.complete).length} left to buy
-          </div>
-        </div>
-
-      <button className="clear-btn" onClick={handleClearCompleted}>clear bought</button>
-    </div>
+      <div className="dragndrop">
+        <DragDropContext onDragEnd={onDragEnd}>
+          <GroceryItems
+            items={items}
+            setItems={setItems} />
+        </DragDropContext>
+      </div>
+      <Meals items={items} />
     </div>
   )
 }

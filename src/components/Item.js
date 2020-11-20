@@ -1,12 +1,9 @@
 import React from 'react'
-import AddItemForm from './AddItemForm'
 import { Draggable } from 'react-beautiful-dnd'
 
 export default function Item({ item, id, index, handleDeleteItem, itemComplete, handleOpenModal }) {
   return(
     <>
-      <AddItemForm
-        id={id} />
       <Draggable 
         draggableId={id} 
         index={index}

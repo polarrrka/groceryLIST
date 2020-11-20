@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Item from './Item'
 import AddItemForm from './AddItemForm'
+import Header from './Header'
+import Footer from './Footer'
 import uuid from 'uuid/dist/v4'
 import { Droppable } from 'react-beautiful-dnd'
 
@@ -45,15 +47,6 @@ export default function GroceryItems({ items, setItems }) {
     })
   }
 
-  function handleEditItems(editValue, editQValue, editPrice, id) {
-    const newItems = [...items]
-    const item = newItems.find(item => item.id === id)
-    item.content = editValue
-    item.quantity = editQValue
-    item.price = editPrice
-    setItems(newItems)
-  }
-
   function handleDeleteItem(id) {
     let newItems = [...items]
     newItems = items.filter(item => item.id !== id)
@@ -67,59 +60,102 @@ export default function GroceryItems({ items, setItems }) {
     newItems.sort((a,b) => a.complete - b.complete)
     setItems(newItems)
   }
+
+    function changeCount(value) {
+    if (value === 'increment') {
+      setQuantity(prevState => Number(prevState) + 1)
+    }
+    else if (value === 'decrement') {
+      setQuantity(quantity > 1 ? quantity - 1 : "")
+    }
+  }
+
+  function clearState() {
+    setName("")
+    setQuantity("")
+    setPrice("")
+  }
+
+  function handleClose(e) {
+    if(onEdit) setOnEdit(false)
+    clearState()
+    setFormVisible(false)
+    e.preventDefault()
+  }
+
+    function handleSubmit(e) {
+    if(!name) return
+    else if(onEdit) {
+      handleSaveEdit(name, price, quantity, editItemId)
+      clearState()
+      setOnEdit(false)
+      setFormVisible(false)
+    } else {
+      addItem(name, price, quantity)
+      clearState()
+      setFormVisible(false)
+    }
+    e.preventDefault()
+  }
+
+  function handleModalClose(e) {
+    if (e.target.closest(".modal")) return
+    clearState()
+    setOnEdit(false)
+    setFormVisible(false)
+  }
   
   return (
-    <>
-      <div className="btn-header">
-        <div className="btn-header__print" onClick={() => window.print()}>
-          <i className="fas fa-print"></i>
-        </div>
-        <div type="button" className="btn-header__add" onClick={() => setFormVisible(true)}>
-          <i className="fas fa-plus"></i>
+    <> 
+      <Header setFormVisible={setFormVisible} />
+
+      <div className={isFormVisible ? "modal-container show-modal" : "modal-container close-modal"}
+          onClick={handleModalClose}>
+        <div className="modal">
+          <div className="modal-header">
+            <h3>{onEdit ? "edit item" : "add item"}</h3>
+          </div>
+          <AddItemForm
+            name={name}
+            price={price}
+            quantity={quantity}
+            setName={setName}
+            setPrice={setPrice}
+            setQuantity={setQuantity}
+            handleSubmit={handleSubmit}
+            handleClose={handleClose}
+            changeCount={changeCount} />
         </div>
       </div>
-      
-      <AddItemForm 
-        addItem={addItem}
-        name={name}
-        price={price}
-        quantity={quantity}
-        setName={setName}
-        setPrice={setPrice}
-        setQuantity={setQuantity}
-        onEdit={onEdit}
-        setOnEdit={setOnEdit}
-        isFormVisible={isFormVisible}
-        setFormVisible={setFormVisible}
-        handleEditItems={handleEditItems}
-        handleSaveEdit={handleSaveEdit}
-        editItemId={editItemId} />
+          
+      <div className={"container"}>
+        <Droppable 
+          droppableId="droppable">
+          {provided => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}>
 
-       
-      <Droppable 
-        droppableId="droppable">
-        {provided => (
-          <div
-            {...provided.droppableProps}
-            ref={provided.innerRef}>
-
-            {items.map((item, index) => {
-              return(
-                <Item 
-                  index={index}
-                  key={item.id}
-                  id={item.id}
-                  item={item}
-                  itemComplete={itemComplete}
-                  handleOpenModal={handleOpenModal}
-                  handleDeleteItem={handleDeleteItem} />
-              )
-            })}
-          {provided.placeholder}
-          </div>
-      )}
-      </Droppable>
-      
+              {items.map((item, index) => {
+                return(
+                  <Item 
+                    index={index}
+                    key={item.id}
+                    id={item.id}
+                    item={item}
+                    itemComplete={itemComplete}
+                    handleOpenModal={handleOpenModal}
+                    handleDeleteItem={handleDeleteItem} />
+                )
+              })}
+            {provided.placeholder}
+            </div>
+        )}
+        </Droppable>
+        <Footer 
+            items={items}
+            setItems={setItems} />
+      </div>
     </>
   )
 }
