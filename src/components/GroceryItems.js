@@ -34,7 +34,7 @@ export default function GroceryItems({ items, setItems }) {
        items.map(item => {
         if(item.id === id){
           return {...item, id: id, content: name, quantity: quantity, price: price, complete: false}}
-        return item;
+        return item
       })
     )
   }
