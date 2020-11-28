@@ -1,15 +1,16 @@
-.app {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-header {
+.header {
   font-family: 'Roboto';
   font-size: 7rem;
   color: $header-color;
   margin-top: 2rem;
+  position: relative;
+
+  &__btn-container {
+    position: absolute;
+    display: inline-flex;
+    transition: $transition;
+    margin: 2rem;
+  }
 }
 
 .container {
@@ -17,8 +18,8 @@ header {
   position: relative;
   box-shadow: $box-shadow;
   border-radius: 1rem;
-  padding: 2rem 2rem 2rem 4rem;
-  width: 60rem;
+  padding: 2.5rem 3.5rem 2.5rem 2.5rem;
+  width: 100%;
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
@@ -26,18 +27,14 @@ header {
 
 .footer {
   position: relative;
+  justify-content: space-between;;
+  display: flex;
   background: $header-color;
   color: $text-color;
   box-shadow: $box-shadow-items;
   border-radius: 4px;
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   padding: 1rem;
   margin-top: 2rem;
-  width: 52rem;
-
-  .total-price {
-    position: absolute;
-    right: 1rem;
-  }
-
+  width: 52rem;  
 }

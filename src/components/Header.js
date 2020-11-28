@@ -2,16 +2,16 @@ import React from 'react'
 
 export default function Header({ setFormVisible }) {
   return (
-    <div>
-      <header>Grocery List</header>
-      <div className="btn-header">
-        <div className="btn-header__print" onClick={() => window.print()}>
+    <header className="header">
+      Grocery List
+      <div className="header__btn-container">
+        <div className="btn-large-round" onClick={() => window.print()}>
           <i className="fas fa-print"></i>
         </div>
-        <div type="button" className="btn-header__add" onClick={() => setFormVisible(true)}>
+        <div type="button" className="btn-large-round" onClick={() => setFormVisible(true)}>
           <i className="fas fa-plus"></i>
         </div>
       </div>
-    </div>
+    </header>
   )
-}
+} 

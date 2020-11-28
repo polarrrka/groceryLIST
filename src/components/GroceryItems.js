@@ -31,7 +31,7 @@ export default function GroceryItems({ items, setItems }) {
 
   function handleSaveEdit(name, price, quantity, id) {
     setItems(
-       items.map(item => {
+      items.map(item => {
         if(item.id === id){
           return {...item, id: id, content: name, quantity: quantity, price: price, complete: false}}
         return item
@@ -112,7 +112,7 @@ export default function GroceryItems({ items, setItems }) {
       <div className={isFormVisible ? "modal-container show-modal" : "modal-container close-modal"}
           onClick={handleModalClose}>
         <div className="modal">
-          <div className="modal-header">
+          <div className="modal__header">
             <h3>{onEdit ? "edit item" : "add item"}</h3>
           </div>
           <AddItemForm
@@ -128,7 +128,7 @@ export default function GroceryItems({ items, setItems }) {
         </div>
       </div>
           
-      <div className={"container"}>
+      <div className="container">
         <Droppable 
           droppableId="droppable">
           {provided => (

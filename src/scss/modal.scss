@@ -27,11 +27,16 @@
   height: 25rem;
   animation-name: modalopen;
   animation-duration: 1s;
-}
 
-.modal-header {
-  background: $background-color;
-  color: $secondary-color;
-  padding: 1.5rem;
-  font-size: 1.5rem;
+  &__header {
+    background: $background-color;
+    color: $secondary-color;
+    padding: 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  &--meal{
+    width: 60rem;
+    height: 30rem;
+  }
 }

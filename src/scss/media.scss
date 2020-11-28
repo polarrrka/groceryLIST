@@ -4,7 +4,7 @@
     background-color: #fff !important;
   }
 
-  header {
+  .header {
     color: $text-color;
   }
 
@@ -21,10 +21,13 @@
     }
   }
 
-  .btn-header,
-  .clear-btn,
-  .btn,
-  .dnd {
+  .btn-large,
+  .btn-large-round,
+  .meals-header,
+  .meal,
+  .meals,
+  .buttons-edit,
+  .item-list__dnd {
     display: none;
   }
 }

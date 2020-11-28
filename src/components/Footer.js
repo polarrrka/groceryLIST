@@ -14,14 +14,14 @@ export default function Footer({ items, setItems }) {
   return (
     <div>
       <div className="footer">
-        <div className="total-price">
-          {items.find(item => item.price) ? `Total price: ${totalPrice()} €` : ''}
-        </div>
-        <div className="left-to-buy">
+        <div className="footer__left-to-buy">
           {items.filter(item => !item.complete).length} left to buy
         </div>
+        <div className="footer__price">
+          {items.find(item => item.price) ? `Total price: ${totalPrice()} €` : ''}
+        </div>
       </div>
-      <button className="clear-btn" onClick={handleClearCompleted}>clear bought</button>
+      <button className="btn-large" onClick={handleClearCompleted}>clear bought</button>
     </div>
   )
 }
