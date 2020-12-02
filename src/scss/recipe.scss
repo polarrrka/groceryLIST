@@ -1,0 +1,47 @@
+.recipe {
+  position: relative;
+      width: 60rem;
+    height: 30rem;
+  display: inline-flex;
+  
+
+  &__img {
+    height: 10rem;
+  }
+}
+
+.recipe-instructions {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.ingredients {
+  margin-bottom: 2rem;
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+
+    li {
+      background-color: $background-color;
+      border-radius: 5px;
+      margin: 5px;
+      padding: 1rem;
+    }
+  }
+}
+
+.instructions {
+  &__list {
+    list-style: none;
+
+
+    li {
+      margin: 5px;
+    }
+  }
+}
+
+

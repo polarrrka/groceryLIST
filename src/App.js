@@ -5,7 +5,7 @@ import { DragDropContext } from 'react-beautiful-dnd'
 import './main.scss'
 
 const LOCAL_STORAGE_KEY = 'groceryList.items'
-const API_KEY = "11e02c7e320d49d4bc950061c0b252fc"
+const API_KEY = '11e02c7e320d49d4bc950061c0b252fc'
 
 function App() {
   const [items, setItems] = useState([])
@@ -25,11 +25,11 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items])
 
-  function getMeals() {
+  async function getMeals() {
     const ingredients = items.map(item => item.content).join(',')
 
     if(ingredients.trim()) {
-      fetch(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=${API_KEY}&ingredients=${ingredients}&number=12`)
+      await fetch(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=${API_KEY}&ingredients=${ingredients}&number=12`)
         .then(res => res.json())
         .then(data => {
           if(data === null) {
