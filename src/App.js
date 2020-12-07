@@ -29,17 +29,16 @@ function App() {
     const ingredients = items.map(item => item.content).join(',')
 
     if(ingredients.trim()) {
-      await fetch(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=${API_KEY}&ingredients=${ingredients}&number=12`)
-        .then(res => res.json())
-        .then(data => {
-          if(data === null) {
-            setMsg('No Recipes Found :( ')
-          } else if(data.code === 402) {
-            setMsg('Just reached your daily limit :(')
-          } else {
-            setMeals(data)
-          }
-        })
+      const res = await fetch(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=${API_KEY}&ingredients=${ingredients}&number=12`)
+      const data = await res.json()
+      if(data === null) {
+        setMsg('No Recipes Found :( ')
+      } else if(data.code === 402) {
+        setMsg('Just reached your daily limit :(')
+      } else {
+        setMeals(data)
+      }
+      return data
     }
   }
 

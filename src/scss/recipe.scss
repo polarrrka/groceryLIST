@@ -1,20 +1,13 @@
 .recipe {
   position: relative;
-      width: 60rem;
-    height: 30rem;
-  display: inline-flex;
-  
-
-  &__img {
-    height: 10rem;
-  }
-}
-
-.recipe-instructions {
   display: flex;
   flex-direction: column;
-  margin: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin: 4rem;
 }
+
+
 
 .ingredients {
   margin-bottom: 2rem;
@@ -23,6 +16,8 @@
     display: flex;
     flex-wrap: wrap;
     list-style: none;
+    margin-left: 2.5rem;
+    font-size: 1.6rem;
 
     li {
       background-color: $background-color;
@@ -36,10 +31,12 @@
 .instructions {
   &__list {
     list-style: none;
+    font-size: 1.3rem;
 
 
     li {
-      margin: 5px;
+      margin: 5px 3rem;
+      padding: 1px;
     }
   }
 }

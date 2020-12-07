@@ -36,8 +36,10 @@
   }
 
   &--meal{
-    width: 60rem;
-    height: 30rem;
+    width: 70rem;
+    height: 90vh;
     position: relative;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
   }
 }

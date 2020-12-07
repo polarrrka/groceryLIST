@@ -1,29 +1,44 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 import Meal from './Meal'
 
 const API_KEY = "11e02c7e320d49d4bc950061c0b252fc"
 
 export default function Meals({ meals, msg }) {
   const [mealInfo, setMealInfo] = useState(false)
-  const [ingredients, setIngredients] = useState('')
-  const [instructions, setInstructions] = useState('')
+  const [ingredients, setIngredients] = useState()
+  const [instructions, setInstructions] = useState()
+  const [title, setTitle] = useState('')
 
-  async function getMealById(id) {
+  const getMealById = (id) => {
     setMealInfo(true)
+    setTitle(meals
+      .filter(meal => meal.id === id)
+      .map(meal => meal.title))
 
-    await fetch(`https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${API_KEY}`)
-      .then(res => res.json())
-      .then(data => {
-        setIngredients(data)
-      })
-      
-    await fetch(`https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=${API_KEY}`)
-      .then(res => res.json())
-      .then(data => setInstructions(data[0].steps))
+    const ingredientAPI = `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${API_KEY}`
+    const instructionAPI = `https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=${API_KEY}`
+
+    const getIngredients = axios.get(ingredientAPI)
+    const getInstructions = axios.get(instructionAPI)
+
+    axios.all([getIngredients, getInstructions]).then(
+      axios.spread((...allData) => {
+        if(allData) {
+          const allIngredientsData = allData[0].data.extendedIngredients
+          const allInstructionsData = allData[1].data[0].steps
+          setIngredients(allIngredientsData)
+          setInstructions(allInstructionsData)
+        }
+        }
+      )
+    )
   }
 
   function closeMealInfo(e) {
     if (e.target.closest(".modal")) return
+    setInstructions()
+    setIngredients()
     setMealInfo(false)
   }
 
@@ -38,26 +53,18 @@ export default function Meals({ meals, msg }) {
             id={meal.id}
             meal={meal}
             mealInfo={mealInfo}
-            recipeInfo={ingredients}
-            closeMealInfo={closeMealInfo}
             getMealById={getMealById} /> ) : ''}
       </div>
         <div className={mealInfo ? "modal-container show-modal" : "modal-container close-modal"}
           onClick={closeMealInfo}>
         <div className="modal modal--meal">
-          <h1 className="modal__header">{ingredients.title}</h1>
+        <h1 className="modal__header">{title}</h1>
           <div className="recipe">
-
-            <img 
-              src={ingredients.image} 
-              alt={ingredients.title}
-              className="recipe__img"/> 
-            <div className="recipe-instructions">
             <div className="ingredients">
               <ul className="ingredients__list">
 
                 { ingredients ? 
-                    ingredients.extendedIngredients.map(ingredient => {
+                    ingredients.map(ingredient => {
                       return (
                         <li className="ingredients__item" key={ingredient.id}>{ingredient.name}</li>) }
                 )
@@ -72,14 +79,14 @@ export default function Meals({ meals, msg }) {
                 { instructions ? 
                     instructions.map(instruction => {
                       return (
-                        <li className="ingredients__item" key={instruction.number}>&gt;{instruction.step}</li>) }
+                        <li className="ingredients__item" key={instruction.number}>&gt; {instruction.step}</li>) }
                 )
                 :
                 ''
                 }
               </ul>
             </div>
-            </div>
+          
           </div>
         </div>
       </div>
