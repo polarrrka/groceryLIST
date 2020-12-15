@@ -4,17 +4,26 @@ import Meal from './Meal'
 
 const API_KEY = "11e02c7e320d49d4bc950061c0b252fc"
 
-export default function Meals({ meals, msg }) {
+export default function Meals({ meals, msg, items, setItems, addItem }) {
   const [mealInfo, setMealInfo] = useState(false)
   const [ingredients, setIngredients] = useState()
   const [instructions, setInstructions] = useState()
   const [title, setTitle] = useState('')
+  const [missedIngredients, setMissedIngredients] = useState()
 
-  const getMealById = (id) => {
+  function getMealById (id) {
     setMealInfo(true)
     setTitle(meals
       .filter(meal => meal.id === id)
       .map(meal => meal.title))
+    
+    setMissedIngredients(meals
+      .filter(meal => meal.id === id)
+      .map(meal => meal.missedIngredients))
+
+      setIngredients(meals
+      .filter(meal => meal.id === id)
+      .map(meal => meal.usedIngredients)) 
 
     const ingredientAPI = `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${API_KEY}`
     const instructionAPI = `https://api.spoonacular.com/recipes/${id}/analyzedInstructions?apiKey=${API_KEY}`
@@ -27,7 +36,7 @@ export default function Meals({ meals, msg }) {
         if(allData) {
           const allIngredientsData = allData[0].data.extendedIngredients
           const allInstructionsData = allData[1].data[0].steps
-          setIngredients(allIngredientsData)
+          // setIngredients(allIngredientsData)
           setInstructions(allInstructionsData)
         }
         }
@@ -41,6 +50,8 @@ export default function Meals({ meals, msg }) {
     setIngredients()
     setMealInfo(false)
   }
+
+
 
   return (
     <div className="meals"> 
@@ -64,9 +75,18 @@ export default function Meals({ meals, msg }) {
               <ul className="ingredients__list">
 
                 { ingredients ? 
-                    ingredients.map(ingredient => {
+                    ingredients[0].map(ingredient => {
                       return (
-                        <li className="ingredients__item" key={ingredient.id}>{ingredient.name}</li>) }
+                        <li className="ingredients__item" key={ingredient.id}>{ingredient.amount} {ingredient.unit} {ingredient.name}</li>) }
+                )
+                :
+                ''
+                }
+
+                { missedIngredients ? 
+                    missedIngredients[0].map(ingredient => {
+                      return (
+                        <li onClick={() => addItem(ingredient.name, '', ingredient.amount)} className="ingredients__item--missed" key={ingredient.id}>{ingredient.amount} {ingredient.unit} {ingredient.name}</li>) }
                 )
                 :
                 ''
@@ -74,12 +94,14 @@ export default function Meals({ meals, msg }) {
               </ul>
             </div> 
 
+
+
             <div className="instructions">
               <ul className="instructions__list">
                 { instructions ? 
                     instructions.map(instruction => {
                       return (
-                        <li className="ingredients__item" key={instruction.number}>&gt; {instruction.step}</li>) }
+                        <li className="instructions__item" key={instruction.number}>&gt; {instruction.step}</li>) }
                 )
                 :
                 ''

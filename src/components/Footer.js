@@ -12,8 +12,8 @@ export default function Footer({ items, setItems }) {
     setItems(newItems)
   }
   return (
-    <div>
-      <div className="footer">
+    <div className="footer">
+      <div className="footer__info">
         <div className="footer__left-to-buy">
           {items.filter(item => !item.complete).length} left to buy
         </div>

@@ -10,7 +10,19 @@
 }
 
 html {
-  font-size: 62.5%; // 10px
+  font-size: 62.5%; // 1rem = 10px
+
+  @include response(tab_land) {
+    font-size: 56.25%; // 1rem = 9px
+  }
+
+  @include response(tab_portrait) {
+    font-size: 50%; // 1rem = 8px
+  }
+
+  @include response(desktop) {
+    font-size: 75%; // 1rem = 12px
+  }
 }
 
 body {

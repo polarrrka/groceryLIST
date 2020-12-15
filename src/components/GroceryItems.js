@@ -3,10 +3,9 @@ import Item from './Item'
 import AddItemForm from './AddItemForm'
 import Header from './Header'
 import Footer from './Footer'
-import uuid from 'uuid/dist/v4'
 import { Droppable } from 'react-beautiful-dnd'
 
-export default function GroceryItems({ items, setItems }) {
+export default function GroceryItems({ items, setItems, addItem }) {
   const [name, setName] = useState("")
   const [price, setPrice] = useState("")
   const [quantity, setQuantity] = useState("")
@@ -37,14 +36,6 @@ export default function GroceryItems({ items, setItems }) {
         return item
       })
     )
-  }
-
-  function addItem(name, price, quantity) {
-    setItems(prevItems => {
-      const newItems = [...prevItems, {id: uuid(), content: name, quantity: quantity, price: price, complete: false}]
-      newItems.sort((a,b) => a.complete - b.complete)
-      return newItems
-    })
   }
 
   function handleDeleteItem(id) {
@@ -133,6 +124,7 @@ export default function GroceryItems({ items, setItems }) {
           droppableId="droppable">
           {provided => (
             <div
+              className="container__droppable"
               {...provided.droppableProps}
               ref={provided.innerRef}>
 

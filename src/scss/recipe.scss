@@ -18,9 +18,17 @@
     list-style: none;
     margin-left: 2.5rem;
     font-size: 1.6rem;
+  }
 
-    li {
-      background-color: $background-color;
+  &__item {
+    background-color: $background-color;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 1rem;
+
+    &--missed {
+      cursor: pointer;
+      background-color: $secondary-color;
       border-radius: 5px;
       margin: 5px;
       padding: 1rem;
@@ -32,13 +40,12 @@
   &__list {
     list-style: none;
     font-size: 1.3rem;
+  }
 
-
-    li {
+  &__item {
       margin: 5px 3rem;
       padding: 1px;
     }
-  }
 }
 
 

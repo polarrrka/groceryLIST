@@ -4,12 +4,24 @@
   color: $header-color;
   margin-top: 2rem;
   position: relative;
+  display: flex;
+
+  @include response(phone) {
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem 8rem;
+    font-size: 4rem;
+  } 
 
   &__btn-container {
-    position: absolute;
-    display: inline-flex;
+    display: flex;
     transition: $transition;
     margin: 2rem;
+
+    @include response(phone) {
+      font-size: 5rem;
+      margin: 1rem -1rem;
+    }
   }
 }
 
@@ -18,23 +30,49 @@
   position: relative;
   box-shadow: $box-shadow;
   border-radius: 1rem;
-  padding: 2.5rem 3.5rem 2.5rem 2.5rem;
-  width: 100%;
+  padding: 2.5rem 2.5rem 2.5rem 0;
+  width: 50vw;
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__droppable {
+    width: 90%;
+  }
+
+  @include response(phone) {
+    margin-top: 0;
+    padding: 1rem 2rem 1rem 1rem;
+    width: 100vw;
+}
 }
 
 .footer {
-  position: relative;
-  justify-content: space-between;;
   display: flex;
-  background: $header-color;
-  color: $text-color;
-  box-shadow: $box-shadow-items;
-  border-radius: 4px;
-  font-size: 1.2rem;
-  padding: 1rem;
-  margin-top: 2rem;
-  width: 52rem;  
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-left: 2.5rem;
+
+  &__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: $header-color;
+    color: $text-color;
+    box-shadow: $box-shadow-items;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    padding: 2rem;
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+    @include response(phone) {
+    width: 30rem;
+
+}
 }

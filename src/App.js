@@ -3,6 +3,7 @@ import GroceryItems from './components/GroceryItems'
 import Meals from './components/Meals'
 import { DragDropContext } from 'react-beautiful-dnd'
 import './main.scss'
+import uuid from 'uuid/dist/v4'
 
 const LOCAL_STORAGE_KEY = 'groceryList.items'
 const API_KEY = '11e02c7e320d49d4bc950061c0b252fc'
@@ -25,6 +26,14 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items])
 
+    function addItem(name, price, quantity) {
+    setItems(prevItems => {
+      const newItems = [...prevItems, {id: uuid(), content: name, quantity: quantity, price: price, complete: false}]
+      newItems.sort((a,b) => a.complete - b.complete)
+      return newItems
+    })
+  }
+
   async function getMeals() {
     const ingredients = items.map(item => item.content).join(',')
 
@@ -37,6 +46,7 @@ function App() {
         setMsg('Just reached your daily limit :(')
       } else {
         setMeals(data)
+        console.log(data)
       }
       return data
     }
@@ -58,11 +68,15 @@ function App() {
         <DragDropContext onDragEnd={onDragEnd}>
           <GroceryItems
             items={items}
-            setItems={setItems} />
+            setItems={setItems}
+            addItem={addItem} />
         </DragDropContext>
       </div>
       <Meals 
         meals={meals}
+        items={items}
+        addItem={addItem}
+        setItems={setItems}
         msg={msg} />
     </div>
   )
